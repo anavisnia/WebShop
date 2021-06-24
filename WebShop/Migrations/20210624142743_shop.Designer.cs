@@ -9,7 +9,7 @@ using WebShop.Data;
 namespace WebShop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210624132218_shop")]
+    [Migration("20210624142743_shop")]
     partial class shop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace WebShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shop");
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("WebShop.Entities.Product", b =>

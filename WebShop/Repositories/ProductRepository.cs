@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebShop.Data;
+using WebShop.Dtos;
 using WebShop.Entities;
 using WebShop.Interfaces;
 
@@ -13,20 +15,26 @@ namespace WebShop.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public ProductRepository(DataContext context)
+        public ProductRepository(DataContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<List<Product>> GetAll()
+        public async Task<List<ProductDto>> GetAll()
         {
-            return await _context.Products.ToListAsync();
+            var entities = await _context.Products.ToListAsync();
+
+            return _mapper.Map<List<ProductDto>>(entities);
         }
 
-        public async Task Add(Product product)
+        public async Task Add(ProductDto productDto)
         {
-            _context.Add(product);
+            var entity = _mapper.Map<Product>(productDto);
+
+            _context.Add(entity);
 
             await _context.SaveChangesAsync();
         }

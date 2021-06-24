@@ -34,9 +34,10 @@ namespace WebShop.Controllers
         {
             var entities = await _repository.GetAll();
 
-            return _mapper.Map<List<ProductDto>>(entities);
+            return entities;
         }
 
+        // ??????
         [HttpGet("/GetAllWithDiscount")]
         public async Task<List<ProductDto>> GetAllWithDiscount()
         {
@@ -55,9 +56,7 @@ namespace WebShop.Controllers
                 throw new ArgumentNullException();
             }
 
-            var product = _mapper.Map<Product>(productDto);
-
-            await _repository.Add(product);
+            await _repository.Add(productDto);
         }
 
         [HttpPost("/Buy")]

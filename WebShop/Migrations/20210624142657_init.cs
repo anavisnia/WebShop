@@ -2,12 +2,12 @@
 
 namespace WebShop.Migrations
 {
-    public partial class shop : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Shop",
+                name: "Shops",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -16,7 +16,7 @@ namespace WebShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shop", x => x.Id);
+                    table.PrimaryKey("PK_Shops", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,9 +35,9 @@ namespace WebShop.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Shop_ShopId",
+                        name: "FK_Products_Shops_ShopId",
                         column: x => x.ShopId,
-                        principalTable: "Shop",
+                        principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -54,7 +54,7 @@ namespace WebShop.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Shop");
+                name: "Shops");
         }
     }
 }
