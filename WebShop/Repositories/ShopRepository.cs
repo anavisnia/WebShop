@@ -39,7 +39,7 @@ namespace WebShop.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Shop> GetById(int id)
+        public ShopDto GetById(int id)
         {
             var shop = _context.Set<Shop>().FirstOrDefault(s => s.Id == id);
 
@@ -48,7 +48,7 @@ namespace WebShop.Repositories
                 throw new ArgumentNullException();
             }
 
-            return shop;
+            return _mapper.Map<ShopDto>(shop);
         }
 
         public async Task Delete(int id)

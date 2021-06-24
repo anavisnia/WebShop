@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebShop.Controllers;
+using WebShop.Dtos;
 using WebShop.Entities;
 using WebShop.Interfaces;
 using WebShop.Mappings;
@@ -30,9 +31,9 @@ namespace UnitTests
 
             var mapper = mockMapper.CreateMapper();
 
-            repository.Setup(r => r.GetAll()).ReturnsAsync(new List<Product>()
+            repository.Setup(r => r.GetAll()).ReturnsAsync(new List<ProductDto>()
             {
-                new Product()
+                new ProductDto()
                 {
                     Price = 3.00M
                 }

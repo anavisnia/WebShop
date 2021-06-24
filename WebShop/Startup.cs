@@ -37,6 +37,7 @@ namespace WebShop
             services.AddScoped<DiscountService>();
             // use always this interface/contract for this repository
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IShopRepository, ShopRepository>();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -38,15 +38,15 @@ namespace WebShop.Controllers
         }
 
         // ??????
-        [HttpGet("/GetAllWithDiscount")]
-        public async Task<List<ProductDto>> GetAllWithDiscount()
-        {
-            var items = await _repository.GetAll();
+        //[HttpGet("/GetAllWithDiscount")]
+        //public async Task<List<ProductDto>> GetAllWithDiscount()
+        //{
+        //    var items = await _repository.GetAll();
 
-            items.ForEach(i => i.Price = _discountService.GetDiscountedPrice(i, i.Quantity));
+        //    items.ForEach(i => i.Price = _discountService.GetDiscountedPrice(i, i.Quantity));
             
-            return _mapper.Map<List<ProductDto>>(items);
-        }
+        //    return _mapper.Map<List<ProductDto>>(items);
+        //}
 
         [HttpPost]
         public async Task Create(ProductDto productDto)
