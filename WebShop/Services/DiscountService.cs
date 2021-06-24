@@ -11,7 +11,7 @@ namespace WebShop.Services
     {
         public decimal GetDiscountedPrice(Product product, int quantity)
         {
-            var fullPrice = (decimal)product.ItemPrice * quantity;
+            var fullPrice = (decimal)product.Price * quantity;
             if(quantity >= 5)
             {
                 return fullPrice / 100.0M * 80;

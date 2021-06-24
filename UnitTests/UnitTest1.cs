@@ -25,7 +25,7 @@ namespace UnitTests
             {
                 new Product()
                 {
-                    ItemPrice = 3.00M
+                    Price = 3.00M
                 }
             });
 
@@ -34,7 +34,7 @@ namespace UnitTests
             var result = await productController.GetAll();
 
             //result.Should().NotBeEmpty();
-            result.First().ItemPrice.Should().Be(2.7M);
+            result.First().Price.Should().Be(2.7M);
         }
     }
 }

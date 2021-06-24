@@ -37,7 +37,7 @@ namespace WebShop.Controllers
         {
             var items = await _repository.GetAll();
 
-            items.ForEach(i => i.ItemPrice = _discountService.GetDiscountedPrice(i, i.ItemQuantity));
+            items.ForEach(i => i.Price = _discountService.GetDiscountedPrice(i, i.Quantity));
 
             return items;
         }
@@ -58,7 +58,7 @@ namespace WebShop.Controllers
         {
             var item = _repository.GetByName(itemDto.ItemName);
 
-            if(quantity <= item.ItemQuantity)
+            if(quantity <= item.Quantity)
             {
                 return _discountService.GetDiscountedPrice(item, itemDto.ItemQuantity);
             }

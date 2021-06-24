@@ -33,7 +33,7 @@ namespace WebShop.Repositories
 
         public Product GetByName(string name)
         {
-            return _context.Products.FirstOrDefault(s => s.ItemName == name);
+            return _context.Products.FirstOrDefault(s => s.Name == name);
         }
     }
 }
