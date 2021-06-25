@@ -35,13 +35,14 @@ namespace UnitTests
             {
                 new ProductDto()
                 {
-                    Price = 3.00M
+                    Price = 3.00M,
+                    Quantity = 1
                 }
             });
 
             var productController = new ProductController(repository.Object, discountService, mapper);
 
-            var result = await productController.GetAll();
+            var result = await productController.GetAllWithDiscount();
 
             //result.Should().NotBeEmpty();
             result.First().Price.Should().Be(2.7M);

@@ -37,16 +37,16 @@ namespace WebShop.Controllers
             return entities;
         }
 
-        // ??????
-        //[HttpGet("/GetAllWithDiscount")]
-        //public async Task<List<ProductDto>> GetAllWithDiscount()
-        //{
-        //    var items = await _repository.GetAll();
+        //??????
+        [HttpGet("/GetAllWithDiscount")]
+        public async Task<List<ProductDto>> GetAllWithDiscount()
+        {
+            var items = await _repository.GetAll();
 
-        //    items.ForEach(i => i.Price = _discountService.GetDiscountedPrice(i, i.Quantity));
-            
-        //    return _mapper.Map<List<ProductDto>>(items);
-        //}
+            items.ForEach(i => i.Price = _discountService.GetDiscountedPrice(i, i.Quantity));
+
+            return _mapper.Map<List<ProductDto>>(items);
+        }
 
         [HttpPost]
         public async Task Create(ProductDto productDto)
@@ -60,17 +60,23 @@ namespace WebShop.Controllers
         }
 
         [HttpPost("/Buy")]
-        public decimal Buy(BuyItemDto itemDto, int quantity)
+        public decimal Buy(string itemName, int quantity)
         {
-            var item = _repository.GetByName(itemDto.ItemName);
+            var item = _repository.GetByName(itemName);
+
+            if(item == null)
+            {
+                return(-1);
+            }
 
             if(quantity <= item.Quantity)
             {
-                return _discountService.GetDiscountedPrice(item, itemDto.ItemQuantity);
+                var itemConvert = _mapper.Map<ProductDto>(item);
+                return _discountService.GetDiscountedPrice(itemConvert, item.Quantity);
             }
             else
             {
-                throw new ArgumentNullException("There is no that many items. Please, try again.");
+                return (-1);
             }
         }
 
