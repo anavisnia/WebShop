@@ -3,12 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WebShop.Data;
 using WebShop.Dtos;
-using WebShop.Interfaces;
 using WebShop.Entities;
+using WebShop.Interfaces;
 
 namespace WebShop.Repositories
 {

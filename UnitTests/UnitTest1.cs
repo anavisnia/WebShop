@@ -1,13 +1,11 @@
 using AutoMapper;
 using FluentAssertions;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebShop.Controllers;
 using WebShop.Dtos;
-using WebShop.Entities;
 using WebShop.Interfaces;
 using WebShop.Mappings;
 using WebShop.Services;

@@ -2,11 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WebShop.Dtos;
-using WebShop.Entities;
 using WebShop.Interfaces;
 
 namespace WebShop.Controllers
@@ -33,7 +30,7 @@ namespace WebShop.Controllers
         [HttpPost]
         public async Task Create(ShopDto shopDto)
         {
-            if(shopDto == null)
+            if (shopDto == null)
             {
                 throw new ArgumentNullException();
             }

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WebShop.Data;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebShop.Dtos;
-using WebShop.Entities;
 using WebShop.Interfaces;
 using WebShop.Services;
 
@@ -51,7 +46,7 @@ namespace WebShop.Controllers
         [HttpPost]
         public async Task Create(ProductDto productDto)
         {
-            if(productDto == null)
+            if (productDto == null)
             {
                 throw new ArgumentNullException();
             }
@@ -64,12 +59,12 @@ namespace WebShop.Controllers
         {
             var item = _repository.GetByName(itemName);
 
-            if(item == null)
+            if (item == null)
             {
-                return(-1);
+                return (-1);
             }
 
-            if(quantity <= item.Quantity)
+            if (quantity <= item.Quantity)
             {
                 var itemConvert = _mapper.Map<ProductDto>(item);
                 return _discountService.GetDiscountedPrice(itemConvert, item.Quantity);

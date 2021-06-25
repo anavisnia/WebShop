@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebShop.Dtos;
-using WebShop.Entities;
+﻿using WebShop.Dtos;
 
 namespace WebShop.Services
 {
@@ -13,7 +7,7 @@ namespace WebShop.Services
         public decimal GetDiscountedPrice(ProductDto product, int quantity)
         {
             var fullPrice = (decimal)product.Price * quantity;
-            if(quantity >= 5)
+            if (quantity >= 5)
             {
                 return fullPrice / 100.0M * 80;
             }
