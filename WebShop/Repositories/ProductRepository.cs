@@ -24,7 +24,7 @@ namespace WebShop.Repositories
 
         public async Task<List<ProductDto>> GetAll()
         {
-            var entities = await _context.Products.ToListAsync();
+            var entities = await _context.Products.Include(s => s.Shop).ToListAsync();
 
             return _mapper.Map<List<ProductDto>>(entities);
         }

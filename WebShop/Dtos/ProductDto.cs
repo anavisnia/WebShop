@@ -8,5 +8,6 @@ namespace WebShop.Dtos
         public string Type { get; set; }
         public int Quantity { get; set; }
         public int ShopId { get; set; }
+        public string ShopName { get; set; }
     }
 }

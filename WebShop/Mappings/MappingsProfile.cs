@@ -8,7 +8,7 @@ namespace WebShop.Mappings
     {
         public MappingsProfile()
         {
-            CreateMap<ProductDto, Product>().ReverseMap();
+            CreateMap<Product, ProductDto>().ForMember(dest => dest.ShopName, opt => opt.MapFrom(src => src.Shop.Name)).ReverseMap();
             CreateMap<ShopDto, Shop>().ReverseMap();
         }
     }
