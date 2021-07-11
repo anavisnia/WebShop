@@ -32,6 +32,14 @@ namespace WebShop.Controllers
             return entities;
         }
 
+        [HttpGet("/All")]
+        public async Task<List<ProductDto>> GetAllEntities()
+        {
+            var entities = await _repository.GetAll();
+
+            return entities;
+        }
+
         //??????
         [HttpGet("/GetAllWithDiscount")]
         public async Task<List<ProductDto>> GetAllWithDiscount()
@@ -74,6 +82,18 @@ namespace WebShop.Controllers
                 return (-1);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(int id)
+        {
+            await _repository.Delete(id);
+        }
+
+        //[HttpDelete("{obj}")]
+        //public async Task Delete(ProductDto productDto)
+        //{
+        //    await _repository.DeleteObj(productDto);
+        //}
 
     }
 }

@@ -29,6 +29,16 @@ namespace WebShop.Repositories
             return _mapper.Map<List<ProductDto>>(entities);
         }
 
+        //public Product GetEntity(ProductDto productdto)
+
+        //{
+        //    var product = _mapper.Map<Product>(productdto);
+
+        //    var entity = _context.Products.FirstOrDefault(p => p == product);
+
+        //    return entity;
+        //}
+
         public async Task Add(ProductDto productDto)
         {
             var entity = _mapper.Map<Product>(productDto);
@@ -42,5 +52,32 @@ namespace WebShop.Repositories
         {
             return _context.Products.FirstOrDefault(s => s.Name == name);
         }
+
+        public async Task Delete(int id)
+        {
+            var product = _context.Set<Product>().FirstOrDefault(p => p.Id == id);
+
+
+            if (product != null)
+            {
+                _context.Remove(product);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        //public async Task DeleteObj(ProductDto productDto)
+        //{
+        //    //var productdto = _context.Set<ProductDto>().FirstOrDefault(p => p.Id == id);
+
+        //    var product = _mapper.Map<Product>(productDto);
+
+        //    if (product != null)
+        //    {
+        //        _context.Remove(product);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //}
     }
 }
