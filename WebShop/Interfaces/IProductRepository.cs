@@ -7,11 +7,10 @@ namespace WebShop.Interfaces
 {
     public interface IProductRepository
     {
-        Task Add(ProductDto product);
-
         Task<List<ProductDto>> GetAll();
 
         //Product GetEntity(ProductDto productdto);
+        Task Upsert(ProductDto productDto);
 
         Product GetByName(string name);
 

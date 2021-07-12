@@ -39,18 +39,26 @@ namespace WebShop.Repositories
         //    return entity;
         //}
 
-        public async Task Add(ProductDto productDto)
-        {
-            var entity = _mapper.Map<Product>(productDto);
-
-            _context.Add(entity);
-
-            await _context.SaveChangesAsync();
-        }
 
         public Product GetByName(string name)
         {
             return _context.Products.FirstOrDefault(s => s.Name == name);
+        }
+
+        public async Task Upsert(ProductDto productDto)
+        {
+            var entity = _mapper.Map<Product>(productDto);
+            // ???
+            if (entity.Id == productDto.Id)
+            {
+                _context.Update(entity);
+            }
+            else
+            {
+                _context.Add(entity);
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(int id)

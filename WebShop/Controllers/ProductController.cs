@@ -32,15 +32,6 @@ namespace WebShop.Controllers
             return entities;
         }
 
-        [HttpGet("/All")]
-        public async Task<List<ProductDto>> GetAllEntities()
-        {
-            var entities = await _repository.GetAll();
-
-            return entities;
-        }
-
-        //??????
         [HttpGet("/GetAllWithDiscount")]
         public async Task<List<ProductDto>> GetAllWithDiscount()
         {
@@ -49,17 +40,6 @@ namespace WebShop.Controllers
             items.ForEach(i => i.Price = _discountService.GetDiscountedPrice(i, i.Quantity));
 
             return _mapper.Map<List<ProductDto>>(items);
-        }
-
-        [HttpPost]
-        public async Task Create(ProductDto productDto)
-        {
-            if (productDto == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            await _repository.Add(productDto);
         }
 
         [HttpPost("/Buy")]
@@ -81,6 +61,12 @@ namespace WebShop.Controllers
             {
                 return (-1);
             }
+        }
+
+        [HttpPost]
+        public async Task Upsert(ProductDto dto)
+        {
+            await _repository.Upsert(dto);
         }
 
         [HttpDelete("{id}")]
