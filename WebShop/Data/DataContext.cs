@@ -10,7 +10,10 @@ namespace WebShop.Data
         }
 
         public DbSet<Product> Products { get; set; }
+
         public DbSet<Shop> Shops { get; set; }
+
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

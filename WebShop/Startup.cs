@@ -5,10 +5,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using WebShop.Authorization;
 using WebShop.Data;
+using WebShop.Entities;
+using WebShop.Helpers;
 using WebShop.Interfaces;
 using WebShop.Repositories;
 using WebShop.Services;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace WebShop
 {
@@ -26,7 +30,15 @@ namespace WebShop
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DataContext>(d => d.UseSqlServer(connectionString));
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.IgnoreNullValues = true);
             services.AddScoped<DiscountService>();
+
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            // configure DI for application services
+            services.AddScoped<IJwtUtils, JwtUtils>();
+            services.AddScoped<IUserService, UserService>();
+
             // use always this interface/contract for this repository
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShopRepository, ShopRepository>();
@@ -40,8 +52,12 @@ namespace WebShop
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext context)
         {
+            createTestUser(context);
+
+            app.UseRouting();
+
             app.UseCors(builder => builder
             .AllowAnyOrigin()
             .AllowAnyMethod()
@@ -56,14 +72,34 @@ namespace WebShop
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            //app.UseRouting();
 
             app.UseAuthorization();
+            // global error handler
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+        }
+
+        private void createTestUser(DataContext context)
+        {
+            // add hardcoded test user to db on startup
+            var testUser = new User
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Username = "test",
+                PasswordHash = BCryptNet.HashPassword("test")
+            };
+            context.Users.Add(testUser);
+            context.SaveChanges();
         }
     }
 }

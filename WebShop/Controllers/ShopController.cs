@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebShop.Authorization;
 using WebShop.Dtos;
 using WebShop.Interfaces;
 
 namespace WebShop.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ShopController : ControllerBase
