@@ -14,6 +14,8 @@ namespace WebShop.Interfaces
 
         Product GetByName(string name);
 
+        Task GetQuantytiAfterBuy(Product product, int quantity);
+
         Task Delete(int id);
 
         //Task DeleteObj(ProductDto productDto);

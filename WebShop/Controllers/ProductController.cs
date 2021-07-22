@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebShop.Authorization;
 using WebShop.Dtos;
 using WebShop.Interfaces;
 using WebShop.Services;
 
 namespace WebShop.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ProductController : ControllerBase
@@ -56,8 +55,11 @@ namespace WebShop.Controllers
 
             if (quantity <= item.Quantity)
             {
+                _repository.GetQuantytiAfterBuy(item, quantity);
+
                 var itemConvert = _mapper.Map<ProductDto>(item);
-                return _discountService.GetDiscountedPrice(itemConvert, item.Quantity);
+
+                return _discountService.GetDiscountedPrice(itemConvert, quantity);
             }
             else
             {

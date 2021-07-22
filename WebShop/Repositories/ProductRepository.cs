@@ -45,6 +45,15 @@ namespace WebShop.Repositories
             return _context.Products.FirstOrDefault(s => s.Name == name);
         }
 
+        public async Task GetQuantytiAfterBuy(Product product, int quantity)
+        {
+            var updatedQuantity = product.Quantity - quantity;
+
+            product.Quantity = updatedQuantity;
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task Upsert(ProductDto productDto)
         {
             var entity = _mapper.Map<Product>(productDto);
