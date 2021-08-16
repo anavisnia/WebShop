@@ -1,6 +1,6 @@
 #  ASP .NET CORE 5 WEB API Shop Project
 #### Project features
-1. .NET CORE 5, 
+1. .NET CORE 5
 2. Entity Framework Core, Linq, Microsoft SQL
 3. Authentication
 4. Authorization
