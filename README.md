@@ -8,3 +8,5 @@
 6. Models are divided into Entities and Data Transfer Objects (DTOs)
 7. Asynchronous Programming: Async/Await
 8. Unit Tests
+#### Link to the frontend:
+https://github.com/anavisnia/angularShop
