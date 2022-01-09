@@ -1,6 +1,7 @@
 using AutoMapper;
 using FluentAssertions;
 using Moq;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,19 +16,27 @@ namespace UnitTests
 {
     public class UnitTest1
     {
-        [Fact]
-        public async Task GetAll_ControllerAppliesDiscount()
+        private DiscountService discountService;
+        private Mock<IProductRepository> repository;
+        private MapperConfiguration mockMapper;
+        private IMapper mapper;
+
+        [SetUp]
+        public void SetUp()
         {
-            var discountService = new DiscountService();
-
-            var repository = new Mock<IProductRepository>();
-
-            var mockMapper = new MapperConfiguration(cfg =>
+            discountService = new DiscountService();
+            repository = new Mock<IProductRepository>();
+            mockMapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingsProfile());
             });
+            mapper = mockMapper.CreateMapper();
+        }
 
-            var mapper = mockMapper.CreateMapper();
+        [Fact]
+        public async Task GetAll_ControllerAppliesDiscount()
+        {
+            SetUp();
 
             repository.Setup(r => r.GetAll()).ReturnsAsync(new List<ProductDto>()
             {
